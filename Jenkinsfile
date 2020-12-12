@@ -20,11 +20,4 @@ pipeline {
           }
    	}
    }
-   post{
-        always{
-             echo "stage-post actions"
-	     sleep(7)
-             deleteDir()
-         }
-    }
 }
