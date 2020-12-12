@@ -22,7 +22,7 @@ pipeline {
                   serviceAccount: "jenkins",
                   yaml: yaml
                   containers: [
-                      containerTemplate(name: 'docker', image: 'docker:stable', command: 'cat', ttyEnabled: true))
+                      containerTemplate(name: 'docker', image: 'docker:stable', command: 'cat', ttyEnabled: true)
                   ],
                   volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')],
                   workspaceVolume: dynamicPVC(accessModes: 'ReadWriteOnce', requestsSize: "50Gi"),
