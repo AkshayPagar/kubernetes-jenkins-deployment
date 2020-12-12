@@ -1,26 +1,9 @@
 pipeline {
    agent {
-	   kubernetes{
-	   	    cloud 'kubernetes'
-		      label nodelabel
-  		    yaml """
-  		    spec:
-            securityContext:
-                fsGroup: 1000
-          containers:
-          - name: jnlp
-            env:
-              - name: HOME
-                value: /home/jenkins
-            securityContext:
-              fsGroup: 1000
-              runAsGroup: 1000
-              runAsUser: 1000
-          """
-      podTemplate(containers: [
-                      containerTemplate(name: 'maven', image: 'maven:3.3.9-jdk-8-alpine', ttyEnabled: true, command: 'cat')
-                  ]) 
-      }
+      label 'promo-app'  // all your pods will be named with this prefix, followed by a unique id
+      idleMinutes 5  // how long the pod will live after no jobs have run on it
+      yamlFile 'prod.yaml'  // path to the pod definition relative to the root of our project 
+      defaultContainer 'maven'  // define a default container if more than a few stages use it, will default to jnlp container
    }
    stages {
 
