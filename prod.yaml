@@ -17,8 +17,13 @@ spec:
       command: ["tail", "-f", "/dev/null"]
       imagePullPolicy: Always
       volumeMounts:
-        - name: docker
+        - name: jenkins-home-pv
           mountPath: /var/run/docker.sock # We use the k8s host docker engine
+  securityContext:
+        fsGroup: 1000
   volumes:
-    - name: docker
-      emptyDir: {}
+    - name: jenkins-home-pv
+      persistentVolumeClaim:
+           claimName: pv-pagara-tkc-jenkins-claim
+  imagePullSecrets:
+        - name: regcred
