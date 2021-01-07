@@ -23,7 +23,6 @@ spec:
         fsGroup: 1000
   volumes:
     - name: jenkins-home-pv
-      persistentVolumeClaim:
-           claimName: pv-pagara-tkc-jenkins-claim
+      emptyDir: {}
   imagePullSecrets:
         - name: regcred
